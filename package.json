@@ -1,0 +1,23 @@
+{
+  "name": "tienda-virtual",
+  "version": "1.0.0",
+  "main": "seed.js",
+  "type": "module",
+  "scripts": {
+    "seed": "node --env-file=.env seed.js",
+    "download-images": "node scripts/download_images.js",
+    "run-queries": "node --env-file=.env model/queries.js"
+  },
+  "keywords": [],
+  "author": "Me",
+  "license": "ISC",
+  "description": "To fill the DB with testing data",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.9.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4"
+  }
+}
