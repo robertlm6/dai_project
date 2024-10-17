@@ -6,7 +6,8 @@
   "scripts": {
     "seed": "node --env-file=.env seed.js",
     "download-images": "node scripts/download_images.js",
-    "run-queries": "node --env-file=.env model/queries.js"
+    "queries": "node --env-file=.env model/queries.js",
+    "backup": "node scripts/create_backup.js"
   },
   "keywords": [],
   "author": "Me",

@@ -1,29 +1,24 @@
 import { MongoClient } from 'mongodb';
 import * as dotenv from 'dotenv';
 
-// Cargar variables de entorno
 dotenv.config({ path: `../.env` });
 
 const USER_DB = process.env.USER_DB;
 const PASS = process.env.PASS;
 
-// Conexión a MongoDB
 const url = `mongodb://${USER_DB}:${PASS}@localhost:27017`;
 const client = new MongoClient(url);
 
-// Nombre de la base de datos
 const dbName = 'myProject';
 
 async function productosDeMasDe100() {
     try {
-        // Conectar al cliente MongoDB
         await client.connect();
         console.log('Conectado a la base de datos');
 
         const db = client.db(dbName);
         const collection = db.collection('productos');
 
-        // Consulta para obtener productos con precio > 100
         const query = { price: { $gt: 100 } };
         const productos = await collection.find(query).toArray();
 
@@ -33,7 +28,6 @@ async function productosDeMasDe100() {
     } catch (error) {
         console.error('Error realizando la consulta:', error);
     } finally {
-        // Cerrar la conexión a la BD
         await client.close();
     }
 }
@@ -140,10 +134,10 @@ async function sinDigitosEnPassword() {
     }
 }
 
-//productosDeMasDe100();
-//productosConWinterEnDescripcionPorPrecio();
-//productosDeJoyeriaPorRating();
-//reseniasTotales();
-puntuacionMediaPorCategoria();
-//sinDigitosEnPassword();
+await productosDeMasDe100();
+await productosConWinterEnDescripcionPorPrecio();
+await productosDeJoyeriaPorRating();
+await reseniasTotales();
+await puntuacionMediaPorCategoria();
+await sinDigitosEnPassword();
 
