@@ -1,0 +1,74 @@
+.card-img-top {
+    height: 500px;               /* Altura fija para las imágenes */
+    transform: scale(0.9);
+}
+
+.card {
+    height: 100%;                /* Asegura que todas las tarjetas llenen la columna */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex-grow: 1;                /* Asegura que el cuerpo de la tarjeta se expanda */
+}
+
+.card-title {
+    min-height: 50px;            /* Asegura un espacio mínimo para los títulos */
+    font-size: 1.1em;            /* Tamaño uniforme para los títulos */
+}
+
+.card-text {
+    flex-grow: 1;                /* Descripción se expande si es necesario */
+}
+
+.btn {
+    margin-top: auto;            /* Posiciona el botón siempre en la parte inferior */
+}
+
+.bg-dark-turquoise {
+    background-color: #007B7F; /* Color turquesa */
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #ffffff;          /* Color del texto blanco */
+    font-weight: bold;       /* Texto en negrita */
+}
+
+.navbar-light .navbar-brand {
+    color: #ffffff;          /* Color del texto blanco para la marca */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #e0e0e0;          /* Color del texto al pasar el mouse */
+}
+
+.btn-dark-green {
+    background-color: #4CAF50;  /* Verde más oscuro */
+    color: #ffffff;              /* Color del texto en el botón */
+}
+
+.btn-dark-green:hover {
+    background-color: #45a049;   /* Color al pasar el mouse */
+}
+
+/* Para navegadores basados en WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px;  /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Color de fondo del track */
+    border: 2px solid #007B7F;  /* Color del borde del track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #007B7F;  /* Color del thumb (parte que se mueve) */
+    border-radius: 10px;  /* Bordes redondeados */
+}
+
+/* Para Firefox */
+* {
+    scrollbar-width: thin;  /* Hace la scrollbar más delgada */
+    scrollbar-color: #007B7F #f1f1f1;  /* Color del thumb y del track */
+}

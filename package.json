@@ -7,16 +7,23 @@
     "seed": "node --env-file=.env seed.js",
     "download-images": "node scripts/download_images.js",
     "queries": "node --env-file=.env model/queries.js",
-    "backup": "node scripts/create_backup.js"
+    "backup": "node scripts/create_backup.js",
+    "start": "node tienda.js",
+    "tienda": "node --watch --env-file=.env tienda.js"
   },
   "keywords": [],
   "author": "Me",
   "license": "ISC",
   "description": "To fill the DB with testing data",
   "dependencies": {
+    "bootstrap": "^5.3.3",
+    "chokidar": "^3.6.0",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "mongodb": "^6.9.0",
-    "node-fetch": "^3.3.2"
+    "mongoose": "^8.7.1",
+    "node-fetch": "^3.3.2",
+    "nunjucks": "^3.2.4"
   },
   "devDependencies": {
     "@types/node": "^22.7.4"
