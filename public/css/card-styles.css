@@ -30,7 +30,7 @@
     background-color: #007B7F; /* Color turquesa */
 }
 
-.navbar-light .navbar-nav .nav-link {
+.navbar-light .navbar-nav .nav-link .p-foot {
     color: #ffffff;          /* Color del texto blanco */
     font-weight: bold;       /* Texto en negrita */
 }
