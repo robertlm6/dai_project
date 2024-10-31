@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Your Cart</h2>
+
+  {% if cart.length == 0 %}
+  <p>Your cart is empty.</p>
+  {% else %}
+  <ul class="list-group mb-4">
+    {% for item in cart %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <img src="{{ item.image }}" alt="{{ item.title }}" class="img-thumbnail" style="width: 50px; height: auto; margin-right: 10px;">
+        <div>
+          <p class="mb-0">{{ item.title }} <span class="text-muted"> - ${{ item.price }}</span></p>
+          <div class="d-flex align-items-center">
+            <form action="/update-cart/{{ item.id }}/decrease" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-outline-secondary btn-sm">-</button>
+            </form>
+            <span class="mx-2">{{ item.quantity }}</span>
+            <form action="/update-cart/{{ item.id }}/increase" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-outline-secondary btn-sm">+</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <form action="/remove-from-cart/{{ item.id }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  <p><strong>Total:</strong> ${{ total }}</p>
+  <a href="/checkout" class="btn btn-success">Checkout</a>
+  {% endif %}
+</div>
+{% endblock %}
