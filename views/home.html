@@ -14,6 +14,12 @@
         <div class="alert alert-warning" role="alert">{{ message }}</div>
     {% endif %}
 
+    {% if welcomeMessage %}
+    <div class="alert alert-success" role="alert">
+        {{ welcomeMessage }}
+    </div>
+    {% endif %}
+
     <div class="row">
         {% for producto in productos %}
         <div class="col-md-4 mb-4 d-flex align-items-stretch">

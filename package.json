@@ -8,6 +8,7 @@
     "download-images": "node scripts/download_images.js",
     "queries": "node --env-file=.env model/queries.js",
     "backup": "node scripts/create_backup.js",
+    "hash-passwords": "node scripts/hash_passwords.js",
     "start": "node tienda.js",
     "tienda": "node --watch --env-file=.env tienda.js"
   },
@@ -16,11 +17,14 @@
   "license": "ISC",
   "description": "To fill the DB with testing data",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "chokidar": "^3.6.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.1",
     "node-fetch": "^3.3.2",

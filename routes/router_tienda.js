@@ -8,11 +8,12 @@ router.get("/", async (req, res) => {
 })
 
 router.get('/home', async (req, res)=>{
+    const usuario = req.user;
     try {
         const productos = await Productos.find({})
             .sort({ 'rating.rate': -1 })
             .limit(10);
-        res.render('home.html', { productos });
+        res.render('home.html', { productos, usuario });
     } catch (err) {
         res.status(500).send({err})
     }
@@ -20,6 +21,7 @@ router.get('/home', async (req, res)=>{
 
 router.post('/search', async (req, res) => {
     const query = req.body.search;
+    const usuario = req.user;
     try {
         const productos = await Productos.find({
             $or: [
@@ -30,13 +32,14 @@ router.post('/search', async (req, res) => {
 
         const message = productos.length === 0 ? 'Products not found.' : null;
 
-        res.render('home.html', { productos, message, query });
+        res.render('home.html', { productos, message, query, usuario });
     } catch (err) {
         res.status(500).send({ err });
     }
 });
 
 router.get('/category/:categorySlug', async (req, res) => {
+    const usuario = req.user;
     const categoryMap = {
         'mens-clothing': "men's clothing",
         'womens-clothing': "women's clothing",
@@ -61,7 +64,7 @@ router.get('/category/:categorySlug', async (req, res) => {
             });
         }
 
-        res.render('category.html', { productos, categoryName });
+        res.render('category.html', { productos, categoryName, usuario });
     } catch (error) {
         res.status(500).send("Error retrieving category products");
     }
@@ -69,14 +72,47 @@ router.get('/category/:categorySlug', async (req, res) => {
 
 
 router.get('/producto/:id', async (req, res) => {
-    const productoId = req.params.id;
     try {
-        const producto = await Productos.findById(productoId);
-        res.render('producto-detalle.html', { producto });
+        const producto = await Productos.findById(req.params.id);
+
+        if (!producto) {
+            return res.status(404).send("Product not found.");
+        }
+
+        res.render('producto-detalle.html', { producto, user: req.user });
     } catch (error) {
-        res.status(500).send("Error al cargar el producto");
+        res.status(500).send("Error loading the product");
     }
 });
+
+router.post('/producto/:id/editar', async (req, res) => {
+    const user = req.user;
+
+    if (!user || !user.admin) {
+        return res.status(403).send("Unauthorized");
+    }
+
+    const { title, price } = req.body;
+
+    try {
+        const producto = await Productos.findByIdAndUpdate(
+            req.params.id,
+            { title, price },
+            { new: true, runValidators: true }
+        );
+
+        res.redirect(`/producto/${producto._id}`);
+    } catch (error) {
+        const producto = await Productos.findById(req.params.id);
+
+        res.render('producto-detalle.html', {
+            producto,
+            user,
+            error: 'Error updating product info. Please, verify the new data and try again later.'
+        });
+    }
+});
+
 
 router.get('/add-to-cart/:id', async (req, res) => {
     const productoId = req.params.id;
@@ -103,7 +139,7 @@ router.get('/add-to-cart/:id', async (req, res) => {
 
         res.redirect('/cart');
     } catch (error) {
-        res.status(500).send("Error al agregar el producto al carrito");
+        res.status(500).send("Error adding the product to cart");
     }
 });
 
@@ -118,10 +154,11 @@ router.post('/remove-from-cart/:id', (req, res) => {
 });
 
 router.get('/cart', (req, res) => {
+    const usuario = req.user;
     const cart = req.session.cart || [];
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-    res.render('cart.html', { cart, total });
+    res.render('cart.html', { cart, total, usuario });
 });
 
 

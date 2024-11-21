@@ -1,0 +1,33 @@
+<!-- ./views/login.html -->
+{% extends "base.html" %}
+
+{% block title %}Sign up - Store{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+        <div class="card-header text-center bg-dark text-white">
+            <h3>Sign up</h3>
+        </div>
+        <div class="card-body p-4">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/usuarios/login" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" name="username" class="form-control" id="username" required placeholder="Enter your username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" class="form-control" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-dark-green w-100">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -63,6 +63,11 @@ const UsuariosSchema = new mongoose.Schema({
     __v: {
         type: Number,
         required: true,
+    },
+    admin: {
+        type: Boolean,
+        default: false,
+        required: false,
     }
 });
 

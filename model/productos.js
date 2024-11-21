@@ -8,11 +8,18 @@ const ProductosSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: (value) => {
+                return /^[A-Z]/.test(value);
+            },
+            message: 'Title must start with uppercase letters'
+        }
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        min: [0, 'Price must be a positive integer or 0'],
     },
     description: {
         type: String,
