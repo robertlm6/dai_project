@@ -4,6 +4,7 @@ import nunjucks  from "nunjucks"
 import session from "express-session"
 import TiendaRouter from "./routes/router_tienda.js"
 import routerUsuarios from './routes/usuarios.js';
+import ratingRouter from './routes/router_rating.js';
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 
@@ -57,8 +58,11 @@ app.use(autentificacion)
     res.send('Hola desde el servidor');
 });*/
 
+app.use(express.json());
+
 app.use("/usuarios", routerUsuarios);
 app.use("/", TiendaRouter);
+app.use('/api/ratings', ratingRouter);
 
 
 const PORT = process.env.PORT || 8000;

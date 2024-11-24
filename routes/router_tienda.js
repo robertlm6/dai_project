@@ -1,6 +1,7 @@
 // ./routes/router_tienda.js
 import express from "express";
 import Productos from "../model/productos.js";
+import logger from "../logger/winston_logger.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -39,6 +40,9 @@ router.post('/search', async (req, res) => {
 });
 
 router.get('/category/:categorySlug', async (req, res) => {
+    logger.info("You are using /category route");
+    logger.warn("You are using /category route");
+    logger.error("You are using /category route");
     const usuario = req.user;
     const categoryMap = {
         'mens-clothing': "men's clothing",

@@ -1,0 +1,37 @@
+### Obtener todos los ratings
+GET http://localhost:8000/api/ratings
+
+###
+
+### Obtener los 5 primeros ratings
+GET http://localhost:8000/api/ratings?desde=0&hasta=5
+
+###
+
+### Obtener del rating 6 al 10
+GET http://localhost:8000/api/ratings?desde=5&hasta=10
+
+###
+
+### Error por valores inválidos
+GET http://localhost:8000/api/ratings?desde=-1&hasta=4
+
+###
+
+GET http://localhost:8000/api/ratings?desde=5&hasta=4
+
+###
+
+### Obtener rating de un producto por ID
+GET http://localhost:8000/api/ratings/66f9752529e061552f9cb177
+
+###
+
+### Modificar rating de un producto
+PUT http://localhost:8000/api/ratings/66f9752529e061552f9cb18a
+Content-Type: application/json
+
+{
+  "rate": 3.4,
+  "count": 160
+}
