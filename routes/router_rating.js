@@ -1,6 +1,5 @@
 import express from 'express';
 import Productos from '../model/productos.js';
-import logger from '../logger/winston_logger.js';
 
 const router = express.Router();
 
@@ -65,6 +64,36 @@ router.put('/:id', async (req, res) => {
         res.json({ message: "Rating successfully updated.", producto });
     } catch (error) {
         res.status(500).json({ message: "Error updating rating.", error });
+    }
+});
+
+router.post('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { rating } = req.body;
+
+    if (!rating || rating < 1 || rating > 5) {
+        return res.status(400).json({ message: 'Rating inválido' });
+    }
+
+    try {
+        const producto = await Productos.findById(id);
+        if (!producto) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        const totalRating = producto.rating.rate * producto.rating.count;
+        const newCount = producto.rating.count + 1;
+        const newRate = (totalRating + rating) / newCount;
+
+        producto.rating.rate = parseFloat(newRate.toFixed(1));
+        producto.rating.count = newCount;
+
+        await producto.save();
+
+        res.json(producto);
+    } catch (error) {
+        console.error('Error al actualizar el rating:', error);
+        res.status(500).json({ message: 'Error del servidor' });
     }
 });
 

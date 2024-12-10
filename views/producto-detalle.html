@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="row">
+  <div class="row detail">
     <div class="col-md-5 text-center">
       <img src="{{ producto.image }}" alt="{{ producto.title }}" class="img-fluid" style="max-width: 100%; height: auto;">
     </div>
@@ -10,19 +10,22 @@
     <div class="col-md-7">
       <h2 class="mb-3">{{ producto.title }}</h2>
 
-      <p>
+      <div class="card-rating">
         <strong>Rating:</strong>
-        {% for i in range(1, 6) %}
-        {% if i <= producto.rating.rate %}
-        <i class="bi bi-star-fill" style="color: gold;"></i>
-        {% elif i - 0.5 <= producto.rating.rate %}
-        <i class="bi bi-star-half" style="color: gold;"></i>
-        {% else %}
-        <i class="bi bi-star" style="color: gold;"></i>
-        {% endif %}
-        {% endfor %}
+        <span class="stars" data-_id="{{producto._id}}">
+          Loading...
+        </span>
         <span class="text-muted">({{ producto.rating.count }} votes)</span>
-      </p>
+
+        <div class="stars-2" data-_id="{{ producto._id }}">
+          <strong id="rating-message">Rate the product!</strong>
+          <i class="bi bi-star" data-star="1" data-_id="{{ producto._id }}"></i>
+          <i class="bi bi-star" data-star="2" data-_id="{{ producto._id }}"></i>
+          <i class="bi bi-star" data-star="3" data-_id="{{ producto._id }}"></i>
+          <i class="bi bi-star" data-star="4" data-_id="{{ producto._id }}"></i>
+          <i class="bi bi-star" data-star="5" data-_id="{{ producto._id }}"></i>
+        </div>
+      </div>
 
       <p>{{ producto.description }}</p>
 

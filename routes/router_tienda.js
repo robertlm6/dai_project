@@ -13,7 +13,7 @@ router.get('/home', async (req, res)=>{
     try {
         const productos = await Productos.find({})
             .sort({ 'rating.rate': -1 })
-            .limit(10);
+            .limit(12);
         res.render('home.html', { productos, usuario });
     } catch (err) {
         res.status(500).send({err})
